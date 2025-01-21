@@ -54,4 +54,37 @@ export class AppController {
       map(response => response.data)
     );
   }
+
+  @Post('cube')
+  cube(@Body() body: any): number[] {
+    const { width, height, depth } = body;
+
+    const hx = width / 2;
+    const hy = height / 2;
+    const hz = depth / 2;
+
+    const vertices = [
+      -hx, -hy, -hz,     hx, hy, -hz,    hx, -hy, -hz, //front triangle
+       -hx, -hy, -hz,    -hx, hy, -hz,   hx, hy, -hz,//front triangle
+       
+      -hx, -hy, hz,      hx, -hy, hz,  hx, hy, hz, //back triangle
+      -hx, -hy, hz,      hx, hy, hz,  -hx, hy, hz, //back triangle
+
+      -hx, -hy, -hz,    -hx, -hy, hz,    -hx, hy, -hz, //left triangle
+      -hx, -hy, hz,      -hx, hy, hz,  -hx, hy, -hz, //left triangle
+
+      hx, -hy, -hz,      hx, hy, -hz,    hx, -hy, hz, //right triangle
+      hx, -hy, hz,      hx, hy, -hz,  hx, hy, hz, //right triangle
+
+      -hx, -hy, -hz,    hx, -hy, -hz,  -hx, -hy, hz, // bottom triangle
+      hx, -hy, -hz,    hx, -hy, hz,  -hx, -hy, hz, // bottom triangle
+
+      -hx, hy, -hz,     -hx, hy, hz,    hx, hy, -hz,// top triangle
+      -hx, hy, hz,     hx, hy, hz,    hx, hy, -hz,// top triangle
+    ];
+
+
+
+    return vertices;
+  }
 }
